@@ -142,11 +142,11 @@ Hence the nth derivative $D^nf : X \to \mathcal{T}(U, \ldots, U \to V)$ may be r
 
 \begin{lemma}(Chain Rule) Suppose that $U,V,W$ are normed vector spaces with $X \subset U$ and $Y \subset V$ open sets. Suppose $f:X \to Y$ is differentiable at $x_0 \in X$ and $g:Y \to W$ is differentiable at $y_0 = f(x_0) \in Y$. Then $g \circ f:X \to W$ is differentiable at $x_0$ and $$D(g \circ f)(x_0) = D(g)(y_0) \circ D(f)(x_0).$$ \end{lemma}
 
-Given normed vector spaces $U_1, U_2$ we will always equip the direct sum with the max norm $\|(u_1, u_2)\| \max \{\|u_1\|, \|u_2 \| \}$, which induces the product topology.
+Given normed vector spaces $U_1, U_2$ we will always equip the direct sum with the max norm $\|(u_1, u_2)\| = \max \{\|u_1\|, \|u_2 \| \}$, which induces the product topology.
 
 \begin{lemma}(Product Rule for multilinear maps) Suppose that $U_1, \ldots, U_n$ are normed vector spaces and $T: U_1 \times \cdots \times U_n \to V$ is a bounded multilinear map. Then $T$ is differentiable at each $\vec{x} = (x_1, \ldots, x_n) \in U_1 \times \cdots \times U_n $ with $$D(T)(\vec{x})(u_1, \ldots, u_n) = T(u, x_2, \ldots, x_n) + T(x_1, u, x_3, \ldots, x_n) + \cdots T(x_1, \ldots x_{n-1}, u). $$\end{lemma}
 
-\begin{lemma}(General product rule)  Suppose that $U_1, \ldots, U_n$ are normed vector spaces and $T: U_1 \times \cdots \times U_n \to V$ is a bounded multilinear map and suppose that $f_i:X \to U_i$ are differentiable at $x_0 \in X$. Then the map $$ H(x) = T(f_1(x), \ldots f_n(x)) $$ is differentiable at $x_0$ and has derivative $$Dh(x_0)u = T((Df_1)(x_0)u, f_2(x_0), \ldots, f_n(x_0)) + \cdots + T(f_1(x_0), f_2(x_0), \ldots, Df_n(x_0)u)$$\end{lemma}
+\begin{lemma}(General product rule)  Suppose that $U_1, \ldots, U_n$ are normed vector spaces and $T: U_1 \times \cdots \times U_n \to V$ is a bounded multilinear map and suppose that $f_i:X \to U_i$ are differentiable at $x_0 \in X$. Then the map $$ H(x) = T(f_1(x), \ldots f_n(x)) $$ is differentiable at $x_0$ and has derivative $$DH(x_0)u = T((Df_1)(x_0)u, f_2(x_0), \ldots, f_n(x_0)) + \cdots + T(f_1(x_0), f_2(x_0), \ldots, Df_n(x_0)u)$$\end{lemma}
 
 \begin{proof} The map $F(x)=(f_1(x), \ldots, f_n(x))$ has derivative $$DF(x_0)u =(Df_1(x_0)u, \ldots, Df_n(x_0)u)$$ and $H = T \circ F$ hence the derivative is 
 
@@ -218,7 +218,7 @@ It is all well and good proving abstract theorems about derivatives, but so far 
 
 \end{prop}
 
-\begin{proof} The hypothesis says that each limit $$\partial_if(x) = \lim_{t \to 0} \frac{f(x+te_i)}{t}$$ exists and is continuous as a function of $x$. To show differentiability at $x_0 \in X$, we first construct the derivative $D= Df (x_0) $ and then show it satisfies the definition. Without loss of generality, we will use the $1$-norm $\| \cdot \| = \| \cdot \|_1$ for convenience. We define $D$ to be the linear map $$Du = u_i \partial_i f (x_0)$$ for $u = \sum_i u_i e_i$. To show that $D$ satisfies the definition of the derivative fix $\epsilon >0$ and find a corresponding $\delta >0$ such that $\| \partial_i f(x) - \partial_if (x_0) \| < \epsilon$ for all $x$ such that $\|x - x_0\| < \delta$. Choose $u$ such that each $\|u_ie\| < \frac{1}{n} \delta$ and let $w_i = u_1 + \ldots + u_i$ and $w_0 = 0$ (notice that this ensures each $\|w_i \| < \delta$). We have 
+\begin{proof} The hypothesis says that each limit $$\partial_if(x) = \lim_{t \to 0} \frac{f(x+te_i)}{t}$$ exists and is continuous as a function of $x$. To show differentiability at $x_0 \in X$, we first construct the derivative $D= Df (x_0) $ and then show it satisfies the definition. Without loss of generality, we will use the $1$-norm $\| \cdot \| = \| \cdot \|_1$ for convenience. We define $D$ to be the linear map $$Du = \sum_{i=1}^n u_i \partial_i f (x_0)$$ for $u = \sum_i u_i e_i$. To show that $D$ satisfies the definition of the derivative fix $\epsilon >0$ and find a corresponding $\delta >0$ such that $\| \partial_i f(x) - \partial_if (x_0) \| < \epsilon$ for all $x$ such that $\|x - x_0\| < \delta$. Choose $u$ such that each $\|u_ie\| < \frac{1}{n} \delta$ and let $w_i = u_1 + \ldots + u_i$ and $w_0 = 0$ (notice that this ensures each $\|w_i \| < \delta$). We have 
 
 \begin{align*} f(x_0 + u) - f(x_0) &= \sum_{i=1}^n f(w_i) - f(w_{i-1}) \\ &= \sum_{i=1}^n f(w_{i-1} + u_i e_i) - f(w_{i}) \\ &= \sum_{i=1}^n (u_i \partial_i f(w_{i-1}) + R_i) \\ &= Du + \sum_{i=1}^n u_i \left(\partial_i f(w_{i-1}) - \partial_i f(x_0) \right) + \sum_{i=1}^n R_i \end{align*}
 
