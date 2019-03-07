@@ -157,7 +157,7 @@ and the result now follows from the product rule for multilinear maps.
  \end{proof}
 
 This example will be important for our proof of Taylor's theorem and can be used to give a higher order product rule.
-\begin{eg} \label{product rule for compositions} Consider the composition map $$ \mathcal{L}(U,V) \times \mathcal{L}(W, U)  \to \mathcal{L}(W,U)$$ given by $(L_1, L_2) \mapsto L_1 \circ L_2$. Then it is a bounded bilinear map. Now suppose that we have maps $g: X \to \mathcal{L}(W,U)$ and $h: X \to \mathcal{L}(U,V)$ differentiable at $x_0 \in X$. Then the map $M(x) = h(x) \circ g(x)$ is differentiable at $x_0$ with derivative given by $$ DM(x_0)u = D(h(x_0))u \circ g(x_0) + h(x_0) \circ Dg(x_0)u $$ \end{eg}
+\begin{eg} \label{product rule for compositions} Consider the composition map $$ \mathcal{L}(U,V) \times \mathcal{L}(W, U)  \to \mathcal{L}(W,U)$$ given by $(L_1, L_2) \mapsto L_1 \circ L_2$. Then it is a bounded bilinear map. Now suppose that we have maps $g: X \to \mathcal{L}(W,U)$ and $h: X \to \mathcal{L}(U,V)$ differentiable at $x_0 \in X$, where $X$ is an open subset of a normed vector space $U_0$. Then the map $M(x) = h(x) \circ g(x)$ is differentiable at $x_0$ with derivative given by $$ DM(x_0)u = D(h(x_0))u \circ g(x_0) + h(x_0) \circ Dg(x_0)u \quad \text{ for } u \in U_0. $$ \end{eg}
 
 \begin{lemma}(Mean value inequality) Suppose $f:X \to V$ is differentiable on each point of the segment $x_0 + tu$ for $t \in [0,1]$ and that $t \mapsto Df(x_0 + tu)$ is continuous on $[0,1]$ . Then $$\| f(x_0 + u) - f(x_0) \| \leq \sup_{t \in [0,1]} \| Df(x_0 + tu) u \|.$$ \end{lemma}
 
