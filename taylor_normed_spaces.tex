@@ -201,7 +201,7 @@ where we firstly used our canonical isomorphism  $$\mathcal{L}(W_0, \mathcal{T}(
  Now to compute this final derivative we use the chain rule as follows. Let $F(u) = D^nf(u)$. Then this final derivative is $D(F \circ L) (a)$ hence equal to $D(F)(La) \circ L= D^{n+1}f(La) \circ L$. So we have shown that \begin{align*} D^{n+1}(f \circ L)(a)(w_0, \ldots, w_n) &= \left((D^{n+1}f(La) \circ L)w_0 \circ L^n) \right) (w_1, \ldots, w_n) \\ &= D^{n+1}f(La) (Lw_0) (Lw_1, \ldots, Lw_n) \end{align*} and the proof is complete once one again applies the canonical isomorphism.
 \end{proof}
 
-\begin{thm}(Co-ordinate free general Taylor theorem) Suppose $f:X \to \mathbb{R}$ is $(n+1)$ times continuously differentiable and let $x_0 \in X$ and $u \in U$ be such that the line segment $x_0 + tu$ is in $X$. Then we have that $$f(x_0 + u) = f(x_0) + \sum_{n=1}^N D^n f(x_0) u^n + R(u)$$ where $u^n = (u, \ldots, u) \in U^n$ and $$R(u) =\frac{1}{(N+1)!} \int_{0}^1 f^{(N+1)}(x_0 + tu)u^{n+1} t^n dt  .$$  \end{thm}
+\begin{thm}(Co-ordinate free general Taylor theorem) Suppose $f:X \to \mathbb{R}$ is $(n+1)$ times continuously differentiable and let $x_0 \in X$ and $u \in U$ be such that the line segment $x_0 + tu$ is in $X$. Then we have that $$f(x_0 + u) = f(x_0) + \sum_{n=1}^N D^n f(x_0) u^n + R(u)$$ where $u^n = (u, \ldots, u) \in U^n$ and $$R(u) =\frac{1}{(N+1)!} \int_{0}^1 D^{N+1}f(x_0 + tu)u^{n+1} t^n dt  .$$  \end{thm}
 
 \begin{proof} By translation invariance of derivatives, it is enough to prove this for $x_0 = 0$. Now write $f(x_0 + tu) - f(x_0) = h(1) - h(0)$ and use Taylor's theorem, where $h = f \circ L$ where $L:\mathbb{R} \to U$ is given by $L(t) = tu$. The result now follows from the Lemma~\ref{lemma: iterated linear chain rule} 
 \end{proof}
@@ -228,10 +228,33 @@ This generalizes to higher order differentiability. We will focus on finite dime
 
 \begin{thm}  Suppose that $X \subset U = \mathbb{R}^d$ is open and $f:X \to V = \mathbb{R}^m$ has the property that all its $n$-order partial derivatives exist and are continuous. Then $f$ is continuously $n$ times continuously differentiable on $X$. \end{thm} 
 
-\begin{proof} We have shown the $n=1$ case. Proceeding by induction, suppose that it holds for $n$. Suppose that $f:X \to \mathbb{R}^m$ has the property that all its $n+1$-order partial derivatives exist and are continuous. The induction hypothesis says that $D^nf: X \to \mathcal{T}( U, \ldots, U \to V)$ exists and is continuous. But with respect to the standard basis for $\mathcal{T}( U, \ldots, U \to V)$ the coefficients of $D^nf(x_0)$ are $n$-order partial derivatives of $f$ at $x_0$ and their partial derivatives are the order $(n+1)$ partial derivatives, which exist and are continuous by hypothesis. Applying the already shown $n=1$ case establishes the inductive step.
+\begin{proof} We have shown the $n=1$ case. Proceeding by induction, suppose that it holds for $n$. Suppose that $f:X \to \mathbb{R}^m$ has the property that all its $n+1$-order partial derivatives exist and are continuous. The induction hypothesis says that $D^nf: X \to \mathcal{T}( U, \ldots, U \to V)$ exists and is continuous. But with respect to the standard basis for $\mathcal{T}( U, \ldots, U \to V)$ the coefficients of $D^nf(x_0)$ are $n$-order partial derivatives of $f$ at $x_0$ and their partial derivatives are the order $(n+1)$ partial derivatives, which exist and are continuous by hypothesis. Applying the already shown $n=1$ case establishes the inductive step. \end{proof}
 
-\end{proof}
+\section{Application: Laplacian and Wave Operator}
 
+\subsection{Motivation}
+
+The Laplacian of a twice differentiable $f:\mathbb{R}^3 \to \mathbb{R}$ is defined as $$\triangle f = \partial_{1}^2f + \partial_{2}^2f  + \partial_{3}^2f. $$ In elementary courses one shows that $$(\triangle f) \circ Q = \triangle (f \circ Q)$$ for $Q \in O(3)$. In mathematical physics and PDEs, one is often interested in the wave operator (D'Alembertian) of $f:\mathbb{R}^4 \to \mathbb{R}$ as $$ \square f = \partial_{1}^2f + \partial_{2}^2f  + \partial_{3}^2f  - \partial_{4}^2f  $$ and one shows that it is invariant under Lorentz transformations, i.e., if $L \in O(3,1)$ then $$\square(f \circ L) = (\square f) \circ L.$$ Our aim is to prove these in an elegant and co-ordinate free way in the framework developed here.
+
+\subsection{Trace of a bilinear form}
+
+Let $V$ be a finite dimensional vector space and suppose that $$ (v_1, v_2) \mapsto \langle v_1, v_2 \rangle $$ is a symmetric, non-degenerate bilinear form $V \times V \to \mathbb{R}.$ 
+
+\begin{lemma} If $B: V \times V \to \mathbb{R}$ is a bilinear form, then there exists a unique linear map $L=L_B: V \to V$ such that $$B(v_1,v_2) = \langle v_1, Lv_2 \rangle.$$  \end{lemma} 
+
+\begin{proof} The map $L_B \mapsto B$ is a well defined linear map $\mathcal{T}(V,V \to \mathbb{R}) \to \mathcal{L}(V \to V)$. It is injective since $\langle -, - \rangle$ is non-degenerate. It is therefore surjective since its domain and codomain have equal dimensions $(\dim V)^2$. \end{proof}
+
+If $Q:V \to V$ is a linear automorphism then we say it is \textit{orthogonal} (with respect to $\langle -, - \rangle$) if $$\langle Qv_1, Qv_2 \rangle = \langle v_1, v_2 \rangle .$$
+
+\begin{lemma} If $Q$ is orthogonal then $$L_{B \circ Q^2} = Q^{-1} L_B Q$$ where $Q^2(v_1,v_2)=(Qv_1, Qv_2).$  \end{lemma}
+
+\begin{proof} For each fixed $v_0 \in V$ we have that $$\langle v_0, L_{B \circ Q^2} v \rangle = (B \circ Q^2) (v_0, v) = B(Qv_0, Qv) = \langle Qv_0, L_B Qv \rangle = \langle v_0, Q^{-1} L_B Q v \rangle .$$  Since this holds for all $v_0 \in V$ and $\langle -, - \rangle $ is non-degenerate, we have the desired equality. \end{proof}
+
+If $Tr(L)$ denote the trace of a linear operator $L:V \to V$ then we obtain the following corollary.
+
+\begin{corol} If $Q$ is orthogonal then $$Tr(L_B) = Tr(L_{B \circ Q^2})$$ \end{corol}
+
+To see how this demonstrates the symmetries of the Laplacian and D'Alembertian, we observe the following. First, notice that the Laplacian and D'Alembertian of a function $f$ may be written as the trace of $L_{D^2f(x)}$ with respect to the Euclidean norm and Minkowski pseudo norm, respectively. On the other hand, by Lemma REF we have that $$D^2(f \circ Q) (x) = D^2(f(Qx)) \circ Q^2,$$ i.e., $D^2(f \circ Q) (x) (v_1,v_2) = D^2(f(Qx)) (Qv_1, Qv_2)$, so the corollary applies.
 %\begin{thebibliography}{99}
 
 %\end{thebibliography}
