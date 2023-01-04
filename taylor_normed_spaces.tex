@@ -192,7 +192,7 @@ We now ask how can this be formulated for $f:U \to \mathbb{R}$ where $U$ is an a
 
 \begin{proof} For $n=1$ this is the chain rule and the fact that $D(L)(a)=L$ for linear maps $L$. Now we proceed by induction. Assuming the result is true for $n$, we now suppose that $f$ is $n+1$ differentiable at $L(a)$. Then we get
 
-\begin{align*} D^{n+1}(f \circ L)(a)  &= D(D^n(f \circ L))(a)) \\ &= D( w \mapsto D^n f(Lw)  \circ L^n)(a). \end{align*} 
+\begin{align*} D^{n+1}(f \circ L)(a)  &= D(D^n(f \circ L))(a) \\ &= D( w \mapsto D^n f(Lw)  \circ L^n)(a). \end{align*} 
 
 To compute this term we use the product rule, specifically Example \ref{product rule for compositions} to the map $w \mapsto D^nf(Lw)$ and the constant map $w \mapsto L^n$. The latter has zero derivative so we only get the first term from Example ((\ref{product rule for compositions})). This means that \begin{align*} D^{n+1}(f \circ L)(a) (w_0, w_1, \ldots, w_n) &= D^{n+1}(f \circ L)(a)(w_0) (w_1, \ldots, w_n) \\ &=( D( w \mapsto D^nf(Lw)) (a) (w_0) \circ L^n ) (w_1, \ldots, w_n) \end{align*}
 
@@ -254,7 +254,15 @@ If $Tr(L)$ denote the trace of a linear operator $L:V \to V$ then we obtain the 
 
 \begin{corol} If $Q$ is orthogonal then $$Tr(L_B) = Tr(L_{B \circ Q^2})$$ \end{corol}
 
-To see how this demonstrates the symmetries of the Laplacian and D'Alembertian, we observe the following. First, notice that the Laplacian and D'Alembertian of a function $f$ may be written as the trace of $L_{D^2f(x)}$ with respect to the Euclidean norm and Minkowski pseudo norm, respectively. On the other hand, by Lemma REF we have that $$D^2(f \circ Q) (x) = D^2(f(Qx)) \circ Q^2,$$ i.e., $D^2(f \circ Q) (x) (v_1,v_2) = D^2(f(Qx)) (Qv_1, Qv_2)$, so the corollary applies.
+To see how this demonstrates the symmetries of the Laplacian and D'Alembertian, we observe the following. First, let $c_1, \ldots, c_n \in \bR \setminus \{0\}$ be non-zero real numbers. We now consider on $\bR^n$ the symmetric, non-degenerate bilinear form given by $$\langle v, w \rangle = \sum_{i=1}^n c_i v_i w_i. $$ Now fix a twice differentiatble function $f:\bR^n \to \bR$. For each $x \in \bR^n$, we have a unique linear operator $L_{D^2f(x)}$ such that $$D^2f(x) (v,w) = \langle L_{D^2f(x)}v, w \rangle.$$ Let $e_1, \ldots, e_n$ be the standard basis for $\bR^n$. Since $$\frac{1}{c_i} \langle e_i, e_j \rangle = \delta_{i,j}$$ we compute the trace to be \begin{align*} Tr(L_{D^2f(x)}) &= \sum_{i=1}^n \frac{1}{c_i} \langle L_{D^2f(x)}e_i, e_i \rangle  \\ & = \sum_{i=1}^n \frac{1}{c_i} D^2f(x)(e_i,e_i) \\ & = \sum_{i=1}^n \frac{1}{c_i} \partial_i^2 f. \end{align*}
+
+Now observe that for the case $c_1 = \cdots = c_n = 1$ this trace is the Laplacian. While for $c_1 = \cdots = c_{n-1} = 1$, $c_n = -c^2$ this trace is the D'Alembertian for the wave equation with speed $c>0$. We know by Lemma~\ref{lemma: iterated linear chain rule} that if $Q:\bR^n \to \bR^n$ is al linear transformation then $$D^2(f \circ Q)(x) = D^2f(Qx) \circ Q^2.$$ Now if $Q$ is orthogonal with respect to our quadratic form, then $$Tr(L_{D^2f (Qx) \circ Q^2}) = Tr(L_{D^2f(Qx)})$$ by the corollary above. We have thus shown
+
+\begin{thm} If $Q$ is orthogonal with respect to $\langle -, - \rangle$ then $$Tr(L_{D^2(f \circ Q)(x)}) = Tr(L_{D^2f(Qx)}).$$
+
+\end{thm}
+
+In particular, this shows that $$\triangle (f \circ Q) = (\triangle f) \circ Q$$ for orthogonal linear transformation $Q$ on Euclidean space $\bR^n$. The same holds if for $\square$ in place of $\triangle$ if $Q$ is a Lorentz transformation.
 %\begin{thebibliography}{99}
 
 %\end{thebibliography}
