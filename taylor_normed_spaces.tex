@@ -28,6 +28,8 @@
 \maketitle
 \raggedbottom
 
+\tableofcontents
+
 
 %% Mathcal large
 \newcommand{\cA}{\mathcal{A}}
@@ -110,9 +112,9 @@ We say that $f: X \to V$ is differentiably at $x_0 \in X$ if there exists a boun
 
 \end{mydef}
 
-\begin{lemma} Such a $D$ must satisfy $$ Du = \lim_{t \to 0} \frac{f(x_0+tu) - f(x_0)}{t \|u \|} $$ for each fixed non-zero $u \in U$ and is hence unique. \end{lemma}
+\begin{lemma} \label{lemma: Derivative unique} Such a $D$ must satisfy $$ Du = \lim_{t \to 0} \frac{f(x_0+tu) - f(x_0)}{t \|u \|} $$ for each fixed non-zero $u \in U$ and is hence unique. \end{lemma}
 
-\begin{proof} For each fixed $u \in U \setminus \{0 \} $ and sufficiently small $t$ we have that $$\| f(x_0+tu) - f(x_0) - D(tu) \| = \epsilon(t \| u \|) \|t u \|. $$ Now divide both sides by $|t|$ and use the linearity of $D$ to get the estimate $$ \| \frac{f(x_0+tu) - f(x_0)}{t } - Du \| \leq \epsilon(t \|u \|) \| u \|.$$  The result now follows by letting $t \to \infty$. \end{proof}
+\begin{proof} For each fixed $u \in U \setminus \{0 \} $ and sufficiently small $t$ we have that $$\| f(x_0+tu) - f(x_0) - D(tu) \| = \epsilon(t \| u \|) \|t u \|. $$ Now divide both sides by $|t|$ and use the linearity of $D$ to get the estimate $$ \| \frac{f(x_0+tu) - f(x_0)}{t } - Du \| \leq \epsilon(t \|u \|) \| u \|.$$  The result now follows by letting $t \to 0$. \end{proof}
 
 Given the uniqueness, we can now define $D = Df(x_0) \in \mathcal{L}(U,V)$ to be the derivative of $f$ at $x_0$. 
 
@@ -132,11 +134,30 @@ This can be generalized to higher order derivatives, hence $D^n f(x_0) : U \time
 
 \begin{prop} There is a canonical isometric isomorphism $$ \mathcal{L}(U_1, \mathcal{T}(U_2, \ldots, U_n \to V)) \cong \mathcal{T}(U_1, \ldots U_n \to V)$$ given by $$\phi \mapsto ((u_1, \ldots, u_n) \mapsto \phi(u_1)(u_2, \ldots, u_n)).$$  \end{prop}
 
-In other words, we could have defined $\| T \|$ as the metric induced by the canonical isomorphism $$ \mathcal{T}(U_1, \ldots, U_n \to V) \cong  \mathcal{L}(U_1, \ldots \mathcal{L}(U_{n-1}, \mathcal{L}(U_n,V)) \ldots) $$
+\begin{proof} That is bijective and linear is clear. Let us show that it is an isometry. Let $\phi:U_1 \to T \in \cT(U_2, \ldots, U_n \to V)$ be a bounded linear map. Thus for all unit vectors $u_1 \in U_1, \ldots, u_n \in U_n$ we have that $$\|\phi(u_1)(u_2, \ldots, u_n) \| \leq \|\phi(u_1)\| \leq \|\phi\|,$$ where the first inequality uses the definition of the norm of a multilinear map while the second uses the definition of a the norm of a linear map. This $(u_1, \ldots, u_2) \mapsto \phi(u_1)(u_2, \ldots, u_n)$ is indeed a bounded multilinear map of norm at most $\|\phi \|$. To show the norm of this multilinear map is equal to $\|\phi\|$, take unit vector $u_1 \in U_1$ such that $\|\phi(u_1) \| \geq (1-\epsilon) \|\phi\|$ and now take unit vectors $u_2, \ldots, u_n$ such that $\|\phi(u_1)(u_2, \ldots, u_n)\| \geq (1-\epsilon) \|\phi(u_1)\|$. Thus $\| \phi(u_1)(u_2, \ldots, u_n) \| \geq (1-\epsilon)^2 \|\phi\|$.
 
-\begin{prop} A multilinear map $T: U_1 \times \cdots \times U_n \to V$ is bounded if and only if it is continuous with respect to the product topology. \end{prop}
+\end{proof}
+
+In other words, the norm $\| T \|$ is the norm induced by the canonical isomorphism $$ \mathcal{T}(U_1, \ldots, U_n \to V) \cong  \mathcal{L}(U_1, \ldots \mathcal{L}(U_{n-1}, \mathcal{L}(U_n,V)) \ldots). $$
 
 Hence the nth derivative $D^nf : X \to \mathcal{T}(U, \ldots, U \to V)$ may be recursively defined as $D^1f = Df$ (which makes sense since $\mathcal{T}(U \to V) = \mathcal{L}(U, V)$) and $$D^{(n+1)}f (x_0)(u_1, \ldots, u_{n+1}) = [(D(D^nf))(x_0)u_1] (u_2, \ldots, u_{n+1})$$ if it exists (and if, of course, $D^nf$ exists on $X$). 
+
+The next proposition shows that the $n$-the derivative is a multilinear form that gives iterated direction derivatives. We let $$(\partial_{u}f)(x_0) = \lim_{t \to 0} \frac{f(x_0+tu) - f(x_0)}{t \|u \|} $$ assuming that this limit exists.
+
+\begin{prop} Suppose that $f:X \to V$ is $n$-times differentiable to $x_0$. Then $$D_n f (x_0)(u_1, \ldots, u_n) = (\partial_{u_1} \cdots \partial_{u_n} f) (x_0).$$ More precisely, for $k<n$ the iterated limits $(\partial_{u_1} \cdots \partial_{u_k}f) (x)$ exists for all $x$ in some open subset of $X$, while for $k=n$ it exists for $x=x_0$ and equals the expression given.
+
+\end{prop}
+
+\begin{proof} We prove this by induction on $n$, the $n=1$ case was proven in Lemma~\ref{lemma: Derivative unique}. Now using the induction hypothesis we get
+\begin{align*} 
+D^nf(x_0)(u_1, \ldots, u_n) &= \left( D(D^{n-1}f) \right) (x_0)(u_1)(u_2, \ldots u_n) \\ 
+&= \left( \lim_{t \to 0} \frac{1}{t} \left(D^{n-1}f(x_0+tu) - D^{n-1}f(x_0) \right) \right) (u_2, \ldots, u_n) \\
+&= \lim_{t \to 0} \frac{1}{t} \left(D^{n-1}f(x_0+tu_1)(u_2, \ldots, u_n) - D^{n-1}f(x_0)(u_2, \ldots u_n) \right)\\
+&=\lim_{t \to 0} \frac{1}{t} \left( (\partial_{u_2} \cdot \partial_{u_n}f)(x_0+tu_1) - (\partial_{u_2} \cdot \partial_{u_n}f)(x_0)  \right) \\
+&= (\partial_1(\partial_{u_2} \cdot \partial_{u_n}f)) (x_0)
+\end{align*}
+
+where we were allowed to put $(u_2, \ldots, u_n)$ inside the limit since the convergence takes place with respect to the operator norm (on the space of bounded $n-1$-multilinear forms), hence pointwise. \end{proof}
 
 \section{Basic properties}
 
@@ -178,7 +199,20 @@ By the definition of differentiability we have that $$Df(x_0 + u) = Df(x_0) + D^
  &= D^2f(x_0) (tu_2 + u_1)u_2 - D^2f(x_0)(tu_2)u_2 + R(tu_2 + u_1)u_2 - R(tu_2)u_2 \\ &= D^2f(x_0)(u_1)(u_2) + R(tu_2 + u_1)u_2 - R(tu_2)u_2  \end{align*} Hence (\ref{mean value second derivative}) gives the estimate \begin{align*} \| g(x_0 + u_2) - g(x_0) - D^2f(x_0)(u_1, u_2) \| & \leq \sup_{t \in [0,1]} \|  R(tu_2 + u_1)u_2 - R(tu_2)u_2 \| \\ & \leq \epsilon_0(\|u_1\| + \|u_2\|) (\|u_1 \| +  \|u_2 \|)^2  \end{align*} for some $\lim_{u \to 0} \epsilon_0(\|u \|) = 0$. In particular, by replacing $u_i$ with $s u_i$ for $0< s < 1$ and dividing by $s^2$ we get the limit \begin{align*} D^2f(x_0)(u_1)(u_2) &= \lim_{s \to 0} \frac{g(x_0 + su_2) - g(x_0)}{s^2} \\ &= \lim_{s \to 0} \frac{f(x_0 + su_1 + su_2) - f(x_0 + su_2) - f(x_0 + su_1) + f(x_0)}{s^2} \end{align*} but this term inside the limit is symmetric in $u_1$ and $u_2$. \end{proof}
 
 We can apply this inductively to get (notice that we don't require $D^nf(x)$ to be defined or continuous on any open set): 
-\begin{thm} Suppose that $f:U \to V$ is such that $D^nf(x_0)$ exists at $x_0 \in U$, then $D^nf(x_0)$ is a symmetric multilinear form. \end{thm} 
+\begin{thm} Suppose $X \subset U$ is open and that $f:X \to V$ is such that $D^nf(x_0)$ exists at $x_0 \in X$. Then $D^nf(x_0)$ is a symmetric multilinear form. \end{thm}
+
+\begin{proof} We prove by induction and assume that $D^{n-1}f(x)$ exists for all $x \in X$ (by shrinking $X$ if necessary). The base case $n=2$ is shown above. 
+
+We let $\cS_{k}(U,V)$ denote those bounded multilinear maps $T:U^k \to V$ such that $T(u_1, \ldots, u_k)$ is invariant under permutations of the $u_i$. Note that $\cS_{k}(U,V)$ is closed in $\cT_k(U,V)$.
+
+Suppose that $n \geq 3$ and the result is true for $n-1$. 
+Now observe that for $u_1 \in U$ we have that  $$D(D^{n-1}f)(x_0)(u_1) = \lim_{t \to 0} \frac{1}{t}\left( (D^{n-1}f)(x_0 + u_1t) - (D^{n-1})f(x_0) \right)$$ and thus the left hand side is a limit of elements in $\cS_{n-1}(U,V)$ and thus $D(D^{n-1}f)(x_0)(u_1) \in \cS_{n-1}(U,V)$. In other words $D^{n}f(x_0)(u_1, u_2, \ldots, u_n)$ is invariant under permutation of the $u_2, \ldots, u_n$. It thus remains to show that it is invariant under permuting $u_1$ and $u_2$.
+
+By the case applied to $D^{n-2}f$ we have $$D^2(D^{n-2}f)(x_0)(u_1,u_2) = D^2(D^{n-2}f)(x_0)(u_2,u_1).$$
+Thus $$D^2(D^{n-2})(x_0)(u_1,u_2)(u_3, \ldots, u_n) = D^2(D^{n-2})(x_0)(u_2,u_1)(u_3, \ldots, u_n).$$
+
+Finally, the proof is complete as $D^2(D^{n-2})(f)(x_0)(u_1, \ldots, u_n) = D^{n}(f)(x_0)(u_1, \ldots, u_n)$.
+\end{proof}
 
 \section{Taylor's Theorem}
 
@@ -201,7 +235,7 @@ where we firstly used our canonical isomorphism  $$\mathcal{L}(W_0, \mathcal{T}(
  Now to compute this final derivative we use the chain rule as follows. Let $F(u) = D^nf(u)$. Then this final derivative is $D(F \circ L) (a)$ hence equal to $D(F)(La) \circ L= D^{n+1}f(La) \circ L$. So we have shown that \begin{align*} D^{n+1}(f \circ L)(a)(w_0, \ldots, w_n) &= \left((D^{n+1}f(La) \circ L)w_0 \circ L^n) \right) (w_1, \ldots, w_n) \\ &= D^{n+1}f(La) (Lw_0) (Lw_1, \ldots, Lw_n) \end{align*} and the proof is complete once one again applies the canonical isomorphism.
 \end{proof}
 
-\begin{thm}(Co-ordinate free general Taylor theorem) Suppose $f:X \to \mathbb{R}$ is $(n+1)$ times continuously differentiable and let $x_0 \in X$ and $u \in U$ be such that the line segment $x_0 + tu$ is in $X$. Then we have that $$f(x_0 + u) = f(x_0) + \sum_{n=1}^N D^n f(x_0) u^n + R(u)$$ where $u^n = (u, \ldots, u) \in U^n$ and $$R(u) =\frac{1}{(N+1)!} \int_{0}^1 D^{N+1}f(x_0 + tu)u^{n+1} t^n dt  .$$  \end{thm}
+\begin{thm}(Co-ordinate free general Taylor theorem) Suppose $f:X \to \mathbb{R}$ is $(n+1)$ times continuously differentiable and let $x_0 \in X$ and $u \in U$ be such that the line segment $x_0 + tu$ is in $X$. Then we have that $$f(x_0 + u) = f(x_0) + \sum_{n=1}^N \frac{1}{n!} D^n f(x_0) u^n + R(u)$$ where $u^n = (u, \ldots, u) \in U^n$ and $$R(u) =\frac{1}{(N+1)!} \int_{0}^1 D^{N+1}f(x_0 + tu)u^{n+1} t^n dt  .$$  \end{thm}
 
 \begin{proof} By translation invariance of derivatives, it is enough to prove this for $x_0 = 0$. Now write $f(x_0 + tu) - f(x_0) = h(1) - h(0)$ and use Taylor's theorem, where $h = f \circ L$ where $L:\mathbb{R} \to U$ is given by $L(t) = tu$. The result now follows from the Lemma~\ref{lemma: iterated linear chain rule} 
 \end{proof}
