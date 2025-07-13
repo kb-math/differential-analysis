@@ -126,8 +126,6 @@ Given the uniqueness, we can now define $D = Df(x_0) \in \mathcal{L}(U,V)$ to be
 
 How do we define higher order derivatives in this setting? If $f:X \to V$ is differentiable on $X$ then $Df: X \to \mathcal{L}(U,V)$. Now $\mathcal{L}(U,V)$ is itself a normed vector space (equipped with operator norm) hence the derivative of $Df$ (assuming it exists) is a map $$D^2 f: X \to \mathcal{L}(U, \mathcal{L}(U,V)).$$ This means that given $u_1, u_2 \in U$ we have that $$D(Df)(x_0) \in \mathcal{L}(U,\mathcal{L}(U,V))$$ and hence $$(D(Df)(x_0) )u_1 \in \mathcal{L}(U,V)$$ and hence $$((D(Df)(x_0))u_1)u_2 \in V.$$ We abbreviate this element in $V$ by $$(D^2f)  (x_0) (u_1, u_2)$$ and hence we get a \textbf{multilinear map} $$(D^2 f) (x_0):U \times U \to V$$ called the \textit{second derivative} of $f$.
 
-\begin{lemma}\label{lemma: second derivative is iterated derivative} If $f: \mathbb{R}^d \to V$ is twice differentiable then $$ D^2 f (x_0) (e_i, e_j) = \partial_i \partial_j f(x_0)$$ where $\partial_i$ is partial differentiation with respect to $i$-th co-ordinate. \end{lemma}
-
 This can be generalized to higher order derivatives, hence $D^n f(x_0) : U \times \cdots \times U \to V$ may be realised as a multilinear map, if it exists, and it can be evaluated through iterated directional derivatives. To make this precise it is worth formalizing some notions regarding the continuity of multilinear maps.
 
 \begin{mydef} Given normed vector spaces $U_1, \ldots, U_n$ and $V$, let $\mathcal{T}(U_1, \ldots, U_n \to V)$ denote the vector space of \textit{bounded} multilinear maps $T: U_1 \times \cdots \times U_n \to V$, where bounded means that $$\| T \| := \sup \{ T(u_1, \ldots, u_m) ~|~ u_i \in U_i \text{ with } \|u_i \| = 1 \} < \infty.$$ Moreover, $\| \cdot \|$ is a norm on the space of bounded multilinear maps.  \end{mydef}
@@ -159,14 +157,53 @@ D^nf(x_0)(u_1, \ldots, u_n) &= \left( D(D^{n-1}f) \right) (x_0)(u_1)(u_2, \ldots
 
 where we were allowed to put $(u_2, \ldots, u_n)$ inside the limit since the convergence takes place with respect to the operator norm (on the space of bounded $n-1$-multilinear forms), hence pointwise. \end{proof}
 
-\section{Basic properties}
+\begin{corol}\label{corol: second derivative is iterated derivative} If $f: \mathbb{R}^d \to V$ is twice differentiable then $$ D^2 f (x_0) (e_i, e_j) = \partial_i \partial_j f(x_0)$$ where $\partial_i$ is partial differentiation with respect to $i$-th co-ordinate. \end{corol}
+
+\section{Basic properties: Chain rule and produt rule}
 
 \begin{lemma}(Chain Rule) Suppose that $U,V,W$ are normed vector spaces with $X \subset U$ and $Y \subset V$ open sets. Suppose $f:X \to Y$ is differentiable at $x_0 \in X$ and $g:Y \to W$ is differentiable at $y_0 = f(x_0) \in Y$. Then $g \circ f:X \to W$ is differentiable at $x_0$ and $$D(g \circ f)(x_0) = D(g)(y_0) \circ D(f)(x_0).$$ \end{lemma}
 
-Given normed vector spaces $U_1, U_2$ we will always equip the direct sum with the max norm $\|(u_1, u_2)\| = \max \{\|u_1\|, \|u_2 \| \}$, which induces the product topology.
+\begin{proof} We have $$(g \circ f)(x_0 + u) = g(f(x_0 +u)) = g(f(x_0) + Df(x_0)u + R_1(u))$$ for small enough $u$, where $\|R_1(u)\| \leq \epsilon_1(\|u\|)\|u\|$ for some $\epsilon_1:[0,\infty) \to [0,\infty)$ such that $\lim_{r \to \infty} \epsilon(r) = 0$.
 
-\begin{lemma}(Product Rule for multilinear maps) Suppose that $U_1, \ldots, U_n$ are normed vector spaces and $T: U_1 \times \cdots \times U_n \to V$ is a bounded multilinear map. Then $T$ is differentiable at each $\vec{x} = (x_1, \ldots, x_n) \in U_1 \times \cdots \times U_n $ with $$D(T)(\vec{x})(u_1, \ldots, u_n) = T(u, x_2, \ldots, x_n) + T(x_1, u, x_3, \ldots, x_n) + \cdots T(x_1, \ldots x_{n-1}, u). $$\end{lemma}
+Observe that for sufficiently small $u$ we have that $Df(x_0)u$ is sufficiently small (as $Df(x_0)$ is bounded and so $\|Df(x_0) u \| \leq \|Df(x_0)\| \|u\|$). Thus using the differentiability of $g$ at $y_0 = f(x_0)$, we have
+\begin{align*}(g \circ f)(x_0+u) &= g(f(x_0)) + Dg(y_0)(Df(x_0)u + R_1(u)) + R_2(Df(x_0)u + R_1(u)). \\
+&= g(f(x_0)) + Dg(y_0)Df(x_0)u  + Dg(y_0)R_1(u) + R_2(Df(x_0)u + R_1(u)).  \end{align*}
 
+It thus remains to bound the remainder terms divided by $\|u\|$ converge to $0$. By definition $\|R_2(v)\| \leq \epsilon_2(\|v\|) \|v\|$ for $\epsilon_2$ satisfying the same condition as $\epsilon_1$ above. So
+\begin{align*}\|R_2(Df(x_0)u + R_1(u))\| &\leq \epsilon_2(\|Df(x_0)u + R_1(u)\|) \|Df(x_0)u + R_1(u)\|  \\
+& \leq  \epsilon_2(\|Df(x_0)u + R_1(u) \|) \left(\|Df(x_0)\| \|u\| + \|R_1(u)\| \right) \\
+& \leq \epsilon_2(\|Df(x_0)u + R_1(u)\|) \left(\|Df(x_0)\| \|u\| + \epsilon_1(\|u\|)\|u\| \right) \\
+& = \epsilon_2(\|Df(x_0)u + R_1(u)\|) \left(\|Df(x_0)\| + \epsilon_1(\|u\|) \right) \|u\|. 
+\end{align*}
+
+The term in front of $\|u\|$ converges to $0$ as $u \to 0$, as desired. Finally, the other remainder term is $$\| Df(y_0)R_1(u) \| \leq \|Df(y_0)\| \|R_1(u)\| \leq \|Df(y_0)\|\epsilon_1(\|u\|) \|u\|,$$
+as desired.  \end{proof}
+
+\begin{remark} Observe how this proof required the derivative to be a bounded linear map. \end{remark}
+
+Given normed vector spaces $U_1, U_2$ we will always equip the direct sum with the max norm $\|(u_1, u_2)\| = \max \{\|u_1\|, \|u_2 \| \}$, which induces the product topology. Note that if $T:U_1 \times \cdots \times U_n \to V$ is a bounded multilinear map, then it is continuous with respect to this topology as can be seen form the inequality $$\|T(u_1, \ldots, u_n)\| \leq \|T\|\|u_1\| \cdots \|u_n\|.$$
+
+\begin{lemma}(Product Rule for multilinear maps) Suppose that $U_1, \ldots, U_n$ are normed vector spaces and $T: U_1 \times \cdots \times U_n \to V$ is a bounded multilinear map. Then $T$ is differentiable at each $\vec{x} = (x_1, \ldots, x_n) \in U_1 \times \cdots \times U_n $ with $$D(T)(\vec{x})(u_1, \ldots, u_n) = T(u_1, x_2, \ldots, x_n) + T(x_1, u_2, x_3, \ldots, x_n) + \cdots + T(x_1, \ldots x_{n-1}, u_n). $$
+
+Moreover, $T$ is in fact smooth (infinitely differentiable). Moreover, $D^{n+1}(T) = 0$.
+\end{lemma}
+
+\begin{proof} Let $\vec{u} = (u_1, \ldots, u_n)$. Note that 
+$$T(\vec{x} + \vec{u}) = T(\vec{x}) + \sum_{i=1}^n T(x_1, \ldots, x_{i-1}, u_i, x_{i+1}, \ldots, x_n) + R$$ where $$R = \sum_{(y_1, \ldots, y_n)} T(y_1, \ldots, y_n)$$ where the sum is taken over all $(y_1, \ldots, y_n)$ where at least two of the $y_k$ are equal to $u_k$ and the others are equal to $x_j$. Thus each a term is at most $$\|T \|\|y_1\|\cdots \|y_n\| \leq K(\vec{x}) \|u\|^2,$$ where $K(\vec{x})$ is some constant depending only on $T$ and $\vec{x}$. This proves that $T$ is differentiable with the derivative as stated.
+
+It remains to prove that $T$ is smooth. For this purpose, let us say that $S:U_1 \times \cdot \times U_n \to W$ is \textit{$r$-partially multilinear} if there exists $i_1 < \ldots <i_r$ such that $S(x_1, \ldots, x_n) = \tilde{S}(x_{i_1}, \ldots, x_{i_r})$. In other words, $S$ is multilinear in $r$ of the variables and constant in the others. Thus we see that $DT:U_1 \times \cdots \times U_n \to L(U_1 \times \cdots \times U_n, V)$ is a sum of $n-1$-partially multlinear maps. By the same argument as above, we get that 
+$$D(S)(\vec{x})(u_1, \ldots u_n) = \tilde{S}(u_{i_1},x_{i_2}, \ldots, x_{i_n}) + \cdots + \tilde{S}(x_{i_1}, \ldots, u_{i_n}).$$ Letting, $$S^1_{\vec{x}}(u_1, \ldots, u_n) = \tilde{S}(u_{i_1},x_{i_2}, \ldots, x_{i_n}) $$ we have that the map
+$$\vec{x} \mapsto S^1_{\vec{x}}$$ is an $r-1$-partially multlinear map $X \to \cL(U_1 \times \cdots \times U_n, V)$. Thus we have shown that if $G:U_1 \times \cdots \times U_n \to W$ is a sum of $r$-partially multilinear maps then it is differentiable and its derivative $$DG:U_1 \times \cdots \times U_n \to W_2$$ is a sum of $r-1$-partially multilinear maps, where $W_2 = \cL(U_1 \times \cdots \times U_n, W)$. This completes the proof that $T$ is smooth. It also shows that $D^nT$ is $0$-partially multilinear, i.e., constant. Thus $D^{n+1}(T) = 0$ as claimed. \end{proof}
+
+\begin{eg} \label{eg: product derivative} Let $T:\bR^n \to \bR$ be given by$T(x_1, \ldots, x_n) = x_1 \cdots x_n$. This is a bounded multilinear map. By the product rule, its derivative is equal to $$DT(x_1, \ldots, x_n)(u_1, \ldots u_n) = u_1x_2 \cdots x_n + \cdots + x_1x_2 \cdots u_n.$$ By representing the derivative as a matrix, we see that $DT$ is the row vector $$[x_2 \dots x_n, x_1x_3\cdots x_n, \ldots, x_1 \ldots x_{n-1}].$$
+
+\end{eg}
+
+\begin{eg} Let $U_i = \bR^n$ for $i=1, \ldots n$ and let $T:U_1 \times \cdots \times U_n \to \bR$ be given by $$T(x_1, \ldots, x_n) = \operatorname{det}(x_1 | \cdots | x_n)$$ where $x_1| \cdots |x_n$ denotes the matrix where the $i$-th column is the column vector $x_i \in \bR^n$. This is a multilinear map. Thus, by the product rule, its derivative is $$T(x_1, \ldots, x_n)(u_1, \ldots, u_n) = \operatorname{det}(u_1 | x_2| \cdots |x_n) + \cdots + \operatorname{det}(x_1|\cdots |x_{n-1}|u_n).$$
+
+In particular, we represent the identity matrix $I = e_1| \cdots | e_n$ where $e_1, \ldots, e_n$ is the standard basis for $\bR^n$. Thus $$DT(I)(A) = \sum_{i=1}^n A_{i,i} = Tr(A)$$ where $A$ is an $n \times n$ matrix.
+
+\end{eg}
 \begin{lemma}(General product rule)  Suppose that $U_1, \ldots, U_n$ are normed vector spaces and $T: U_1 \times \cdots \times U_n \to V$ is a bounded multilinear map and suppose that $f_i:X \to U_i$ are differentiable at $x_0 \in X$. Then the map $$ H(x) = T(f_1(x), \ldots f_n(x)) $$ is differentiable at $x_0$ and has derivative $$DH(x_0)u = T((Df_1)(x_0)u, f_2(x_0), \ldots, f_n(x_0)) + \cdots + T(f_1(x_0), f_2(x_0), \ldots, Df_n(x_0)u)$$\end{lemma}
 
 \begin{proof} The map $F(x)=(f_1(x), \ldots, f_n(x))$ has derivative $$DF(x_0)u =(Df_1(x_0)u, \ldots, Df_n(x_0)u)$$ and $H = T \circ F$ hence the derivative is 
@@ -177,15 +214,22 @@ and the result now follows from the product rule for multilinear maps.
 
  \end{proof}
 
-This example will be important for our proof of Taylor's theorem and can be used to give a higher order product rule.
+\begin{eg} Let $H:\bR \to \bR$ be given by $H(x) = h_1(x) \cdots h_n(x)$ where $h:\bR \to \bR$ are differentiable for all $x \in \bR$. Thus $H(x) = T(f_1(x), \ldots, f_n(x))$ where $T(x_1, \ldots, x_n) = x_1 \cdots x_n$ is from Example~\ref{eg: product derivative}, where we computed the derivative already. Thus we have that $$DH(x)(u) = ((Df_1(x))u)f_2(x) \cdots f_n(x) + f_1(x) \cdots f_{n-1}(x) (Df_n(x) u).$$ Now, for $F: \bR \to \bR$ we have that $DF:\bR \to \cL(\bR, \bR)$. However,  $\cL(\bR, \bR)$ is isomorphic to $\bR$ where we identity $\phi$ with $\phi(1)$. Thus for differentiable $F:\bR \to \bR$ we identify $DF(x) \in \cL(\bR, \bR)$ with $F'(x) := DF(x)(1) \in \bR$, to get the usual derivative from basic calculus. This means that 
+$$H'(x) = f'_1(x)f_2(x) \cdots f_n(x) + \cdots + f_1(x) \cdots f_{n-1}(x) f'_n(x)$$
+and so we recover the usual product rule from basic calculus.
+\end{eg}
+
+The next example will be important for our proof of Taylor's theorem and can be used to give a higher order product rule.
 \begin{eg} \label{product rule for compositions} Consider the composition map $$ \mathcal{L}(U,V) \times \mathcal{L}(W, U)  \to \mathcal{L}(W,U)$$ given by $(L_1, L_2) \mapsto L_1 \circ L_2$. Then it is a bounded bilinear map. Now suppose that we have maps $g: X \to \mathcal{L}(W,U)$ and $h: X \to \mathcal{L}(U,V)$ differentiable at $x_0 \in X$, where $X$ is an open subset of a normed vector space $U_0$. Then the map $M(x) = h(x) \circ g(x)$ is differentiable at $x_0$ with derivative given by $$ DM(x_0)u = D(h(x_0))u \circ g(x_0) + h(x_0) \circ Dg(x_0)u \quad \text{ for } u \in U_0. $$ \end{eg}
 
 \begin{lemma}(Mean value inequality) Suppose $f:X \to V$ is differentiable on each point of the segment $x_0 + tu$ for $t \in [0,1]$ and that $t \mapsto Df(x_0 + tu)$ is continuous on $[0,1]$ . Then $$\| f(x_0 + u) - f(x_0) \| \leq \sup_{t \in [0,1]} \| Df(x_0 + tu) u \|.$$ \end{lemma}
 
-\begin{proof} We first reduce to the case $V = \mathbb{R}$ as follows. By the Hahn-Banach theorem we have a linear $\phi:V \to R$ such that $\phi (f(x_0 + u) - f(x_0)) = \| f(x_0 + u) - f(x_0) \|$ and $|\phi \| = 1$. So if the theorem is true for $g = \phi \circ f: X \to V$ we must have $$\|f(x_0+ u) -f(x_0)\| = \|g(x_0 + u) - g(x_0) \| \leq \sup_{t \in [0,1]} \| Dg(x_0 + tu) u \|.$$ But by the chain rule and the fact that $D\phi(x) = \phi$ for all linear $\phi$, we have that $Dg = \phi \circ Df$. Hence we have that $$\|Dg(x_0 +tu)u \| = \| \phi Df(x_0+tu)u \| \leq Df(x_0+tu)u.$$ 
+\begin{proof} We first reduce to the case $V = \mathbb{R}$ as follows. By the Hahn-Banach theorem we have a linear $\phi:V \to R$ such that $\phi (f(x_0 + u) - f(x_0)) = \| f(x_0 + u) - f(x_0) \|$ and $\|\phi \| = 1$. So if the theorem is true for $g = \phi \circ f: X \to V$ we must have $$\|f(x_0+ u) -f(x_0)\| = \|g(x_0 + u) - g(x_0) \| \leq \sup_{t \in [0,1]} \| Dg(x_0 + tu) u \|.$$ But by the chain rule and the fact that $D\phi(x) = \phi$ for all linear $\phi$, we have that $Dg = \phi \circ Df$. Hence we have that $$\|Dg(x_0 +tu)u \| = \| \phi Df(x_0+tu)u \| \leq Df(x_0+tu)u.$$ 
 
 We now turn to show that the theorem holds when $V = \mathbb{R}$. Let $h(t) = f(x_0+tu)$. Note that the classical derivative $h'(t) = Dh(t) (1)$ is continuous, hence we may apply the fundamental theorem of calculus to get $$\| f(x_0 + u) - f(x_0) \| = |h(1) - h(0)| \leq |\int_{0}^1 h'(t) dt| \leq \sup_{t \in [0,1]}|h'(t)|.$$ But from the chain rule we get
 \begin{align*} h'(t_0) &= Dh(t_0)(1) \\ &= D(f(x_0 + ut_0)) D(t \mapsto (x_0 + tu))(t_0)(1) \\ &= D(f(x_0+t_0u)) (t \mapsto tu)(1) \\&=D(f(x_0+t_0u)) u  \end{align*} \end{proof}
+
+\section{Smoothness of higher derivatives}
 
 \section{The commutativity of higher order derivatives}
 
@@ -242,7 +286,7 @@ where we firstly used our canonical isomorphism  $$\mathcal{L}(W_0, \mathcal{T}(
 
 \section{Recovering the co-ordinate based Taylor theorem}
 
-To recover the Taylor theorem most often presented in undergraduate vector calculus, one needs to expand $D^nf(x_0) u^n$ as follows. Writing $$u = \sum_i u_i e_i$$ where $e_1, \ldots, e_d$ is a basis for $U$, we have that $$D^nf(x_0) (e_{i_1}, \ldots, e_{i_n}) = \partial_{i_1} \cdots \partial{i_n}f(x_0)$$ by the discussion surrounding Lemma~\ref{lemma: second derivative is iterated derivative} on iterated derivatives, where $\partial_i$ is partial differentiation with respect to the $e_i$ direction. Hence by multilinearity we get that $$D^nf(x_0)u = \sum_{i_1, \ldots, i_n} \partial_{i_1} \cdots \partial_{i_n}f(x_0) u_{i_1} \ldots u_{i_n}.$$ Now by commutativity of derivatives the order of $i_1, \ldots, i_n$ does not matter, hence it pays to express this in terms of partitions as follows. Given $\alpha = (a_1, \ldots, a_d) \in \mathbb{Z}_{\geq 0}^d$ such that $\sum_i a_i = n$ we define $$D^{\alpha}f(x_0) = \partial_1^{a_1} \cdots \partial_n^{a_d} f(x_0)$$ where $\partial_i^{k}$ means $\partial_i$ applied $k$ times. Define also $$u^{\alpha} = \prod_{i} u_i^{a_i}.$$ Then by grouping the terms together we get the expression $$D^n f(x_0) u = \sum_{|\alpha| = n} \binom{n}{\alpha} D^{\alpha}f(x_0) u ^{\alpha}$$ where $|\alpha| = a_1 + \cdots + a_d$ and $$\binom{n}{\alpha} = \frac{n!}{a_1 ! \cdots a_d!}$$ is the multinomial coefficient which counts the number of sequences $\{1, \ldots, d\}^n$ where $i$ appears $a_i$ times. Finally, this means that the Taylor theorem may be written as $$ f(x_0 + u ) = f(x_0) + \sum_{n=1}^N \sum_{|\alpha| = n} \frac{1}{\alpha!} D^{\alpha}f(x_0) u^{\alpha}  + R(x) $$ where $$ \alpha! = a_1! \cdots a_d!$$
+To recover the Taylor theorem most often presented in undergraduate vector calculus, one needs to expand $D^nf(x_0) u^n$ as follows. Writing $$u = \sum_i u_i e_i$$ where $e_1, \ldots, e_d$ is a basis for $U$, we have that $$D^nf(x_0) (e_{i_1}, \ldots, e_{i_n}) = \partial_{i_1} \cdots \partial{i_n}f(x_0),$$ where $\partial_i$ is partial differentiation with respect to the $e_i$ direction. Hence by multilinearity we get that $$D^nf(x_0)u = \sum_{i_1, \ldots, i_n} \partial_{i_1} \cdots \partial_{i_n}f(x_0) u_{i_1} \ldots u_{i_n}.$$ Now by commutativity of derivatives the order of $i_1, \ldots, i_n$ does not matter, hence it pays to express this in terms of partitions as follows. Given $\alpha = (a_1, \ldots, a_d) \in \mathbb{Z}_{\geq 0}^d$ such that $\sum_i a_i = n$ we define $$D^{\alpha}f(x_0) = \partial_1^{a_1} \cdots \partial_n^{a_d} f(x_0)$$ where $\partial_i^{k}$ means $\partial_i$ applied $k$ times. Define also $$u^{\alpha} = \prod_{i} u_i^{a_i}.$$ Then by grouping the terms together we get the expression $$D^n f(x_0) u = \sum_{|\alpha| = n} \binom{n}{\alpha} D^{\alpha}f(x_0) u ^{\alpha}$$ where $|\alpha| = a_1 + \cdots + a_d$ and $$\binom{n}{\alpha} = \frac{n!}{a_1 ! \cdots a_d!}$$ is the multinomial coefficient which counts the number of sequences $\{1, \ldots, d\}^n$ where $i$ appears $a_i$ times. Finally, this means that the Taylor theorem may be written as $$ f(x_0 + u ) = f(x_0) + \sum_{n=1}^N \sum_{|\alpha| = n} \frac{1}{\alpha!} D^{\alpha}f(x_0) u^{\alpha}  + R(x) $$ where $$ \alpha! = a_1! \cdots a_d!$$
 
 \section{Sufficient conditions for differentiability}
 
