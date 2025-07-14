@@ -126,7 +126,23 @@ Given the uniqueness, we can now define $D = Df(x_0) \in \mathcal{L}(U,V)$ to be
 
 How do we define higher order derivatives in this setting? If $f:X \to V$ is differentiable on $X$ then $Df: X \to \mathcal{L}(U,V)$. Now $\mathcal{L}(U,V)$ is itself a normed vector space (equipped with operator norm) hence the derivative of $Df$ (assuming it exists) is a map $$D^2 f: X \to \mathcal{L}(U, \mathcal{L}(U,V)).$$ This means that given $u_1, u_2 \in U$ we have that $$D(Df)(x_0) \in \mathcal{L}(U,\mathcal{L}(U,V))$$ and hence $$(D(Df)(x_0) )u_1 \in \mathcal{L}(U,V)$$ and hence $$((D(Df)(x_0))u_1)u_2 \in V.$$ We abbreviate this element in $V$ by $$(D^2f)  (x_0) (u_1, u_2)$$ and hence we get a \textbf{multilinear map} $$(D^2 f) (x_0):U \times U \to V$$ called the \textit{second derivative} of $f$.
 
-This can be generalized to higher order derivatives, hence $D^n f(x_0) : U \times \cdots \times U \to V$ may be realised as a multilinear map, if it exists, and it can be evaluated through iterated directional derivatives. To make this precise it is worth formalizing some notions regarding the continuity of multilinear maps.
+Let us be more formal for higher derivatives. Let $\cL_{U}(V) = \cL(U,V)$ and define recurisively, $\cL^1_{U}(V) = \cL_(V)$ and $\cL^n_{U}(V) = \cL^{n-1}_{U}(V).$ 
+
+Thus if $\phi \in \cL^2_{U}(V)$ then $\phi(u_1) \in \cL(U,V)$ and thus $(\phi(u_1))(u_2) \in V$. We rewrite this as $\phi(u_1)(u_2)$ to avoid lots of parentheses. So for example, if $\phi \in \cL^n_U(V)$ then $\phi(u_1)(u_2) \dots (u_n) \in V$, where this expression is processed from left to right (i.e., $\phi(u_1) \cdots (u_k)$ is an element of $\cL^{n-k}_U(V)$ and it takes $u_{k+1}$ as an argument).
+
+Observe that $\cL^n_U(V)$ is naturally a normed-vector space with norm being an operator norm.
+
+\begin{mydef} We define \textit{$f:X \to V$ to be $n$-differentiable at $x_0 \in X$} and we define the $n$-th derivative (if it exists) $(D^nf)(x_0) \in \cL(U,V)$ by the following recursive definition:
+
+\begin{itemize} 
+	\item If $n=1$, then $D^1f(x_0) = Df(x_0)$ and $1$-differentiable at $x_0$ means differentiable at $x_0$.
+	\item If $n>1$, then we say that $f$ is $n$-differentiable at $x_0$ if there is an open neighbhourhoud $X' \subset X$ containing $x_0$ such that $f$ is $n-1$-differentiable for all $x \in X'$ and the map $x \mapsto D^{n-1}(f)(x)$ is differentiable at $x_0$. In this case, we define the $n$-th derivative $(D^{n}f) (x_0) = D(D^{n-1}f)(x_0)$
+
+\end{itemize}
+
+\end{mydef}
+
+We now show that $D^n f(x_0)$ can be naturally realized as a multilinear map $U \times \cdots \times U \to V$, if it exists, and it can be evaluated through iterated directional derivatives. To make this precise it is worth formalizing some notions regarding the continuity of multilinear maps.
 
 \begin{mydef} Given normed vector spaces $U_1, \ldots, U_n$ and $V$, let $\mathcal{T}(U_1, \ldots, U_n \to V)$ denote the vector space of \textit{bounded} multilinear maps $T: U_1 \times \cdots \times U_n \to V$, where bounded means that $$\| T \| := \sup \{ T(u_1, \ldots, u_m) ~|~ u_i \in U_i \text{ with } \|u_i \| = 1 \} < \infty.$$ Moreover, $\| \cdot \|$ is a norm on the space of bounded multilinear maps.  \end{mydef}
 
@@ -136,9 +152,17 @@ This can be generalized to higher order derivatives, hence $D^n f(x_0) : U \time
 
 \end{proof}
 
-In other words, the norm $\| T \|$ is the norm induced by the canonical isomorphism $$ \mathcal{T}(U_1, \ldots, U_n \to V) \cong  \mathcal{L}(U_1, \ldots \mathcal{L}(U_{n-1}, \mathcal{L}(U_n,V)) \ldots). $$
+In other words, the norm $\| T \|$ is equal to the operator norm on $\mathcal{L}(U_1, \mathcal{T}(U_2, \ldots, U_n \to V)).$ Letting $$\cT_n(U,V) = \cT(U_1 \times \cdots \times U_n \to V),$$we can apply this recursively to get.
 
-Hence the nth derivative $D^nf : X \to \mathcal{T}(U, \ldots, U \to V)$ may be recursively defined as $D^1f = Df$ (which makes sense since $\mathcal{T}(U \to V) = \mathcal{L}(U, V)$) and $$D^{(n+1)}f (x_0)(u_1, \ldots, u_{n+1}) = [(D(D^nf))(x_0)u_1] (u_2, \ldots, u_{n+1})$$ if it exists (and if, of course, $D^nf$ exists on $X$). 
+\begin{corol} We have an isometric isomorphism $$\cT(U_1, \ldots, U_n \to V) \cong \cL^n_U(V).$$ 
+In this isomorphism, the element $\phi \in \cL^n_U(V)$ corresponds to $T \in \cT_n(U,V)$ given by $$T(u_1, \ldots, u_n) = \phi(u_1)(u_2) \cdots(u_n)$$ and the operator norm $\|\phi\|$ is equal to the norm $\|T\|$ on the space of bounded multilinear maps.
+
+\end{corol}
+
+From now on, we identify $\cL^n_U(V)$ with the space of bounded multilinear maps as in the Corollary above. 
+Hence the nth derivative $D^nf(x_0)$ may be recursively defined as bounded multilinear map as follows:
+
+ The first derivative is $D^1f = Df$ (which makes sense since $\mathcal{T}(U \to V) = \mathcal{L}(U, V)$) and $$D^{(n+1)}f (x_0)(u_1, \ldots, u_{n+1}) = [(D(D^nf))(x_0)u_1] (u_2, \ldots, u_{n+1})$$ if it exists (and if, of course, $D^nf$ exists on $X$). 
 
 The next proposition shows that the $n$-the derivative is a multilinear form that gives iterated direction derivatives. We let $$(\partial_{u}f)(x_0) = \lim_{t \to 0} \frac{f(x_0+tu) - f(x_0)}{t \|u \|} $$ assuming that this limit exists.
 
@@ -214,7 +238,7 @@ and the result now follows from the product rule for multilinear maps.
 
  \end{proof}
 
-\begin{eg} Let $H:\bR \to \bR$ be given by $H(x) = h_1(x) \cdots h_n(x)$ where $h:\bR \to \bR$ are differentiable for all $x \in \bR$. Thus $H(x) = T(f_1(x), \ldots, f_n(x))$ where $T(x_1, \ldots, x_n) = x_1 \cdots x_n$ is from Example~\ref{eg: product derivative}, where we computed the derivative already. Thus we have that $$DH(x)(u) = ((Df_1(x))u)f_2(x) \cdots f_n(x) + f_1(x) \cdots f_{n-1}(x) (Df_n(x) u).$$ Now, for $F: \bR \to \bR$ we have that $DF:\bR \to \cL(\bR, \bR)$. However,  $\cL(\bR, \bR)$ is isomorphic to $\bR$ where we identity $\phi$ with $\phi(1)$. Thus for differentiable $F:\bR \to \bR$ we identify $DF(x) \in \cL(\bR, \bR)$ with $F'(x) := DF(x)(1) \in \bR$, to get the usual derivative from basic calculus. This means that 
+\begin{eg} Let $H:\bR \to \bR$ be given by $H(x) = h_1(x) \cdots h_n(x)$ where $h:\bR \to \bR$ are differentiable for all $x \in \bR$. Thus $H(x) = T(f_1(x), \ldots, f_n(x))$ where $T(x_1, \ldots, x_n) = x_1 \cdots x_n$ is from Example~\ref{eg: product derivative}, where we computed the derivative already. Thus we have that $$DH(x)(u) = ((Df_1(x))u)f_2(x) \cdots f_n(x) + \cdots + f_1(x) \cdots f_{n-1}(x) (Df_n(x) u).$$ Now, for $F: \bR \to \bR$ we have that $DF:\bR \to \cL(\bR, \bR)$. However,  $\cL(\bR, \bR)$ is isomorphic to $\bR$ where we identity $\phi$ with $\phi(1)$. Thus for differentiable $F:\bR \to \bR$ we identify $DF(x) \in \cL(\bR, \bR)$ with $F'(x) := DF(x)(1) \in \bR$, to get the usual derivative from basic calculus. This means that 
 $$H'(x) = f'_1(x)f_2(x) \cdots f_n(x) + \cdots + f_1(x) \cdots f_{n-1}(x) f'_n(x)$$
 and so we recover the usual product rule from basic calculus.
 \end{eg}
@@ -224,10 +248,14 @@ The next example will be important for our proof of Taylor's theorem and can be 
 
 \begin{lemma}(Mean value inequality) Suppose $f:X \to V$ is differentiable on each point of the segment $x_0 + tu$ for $t \in [0,1]$ and that $t \mapsto Df(x_0 + tu)$ is continuous on $[0,1]$ . Then $$\| f(x_0 + u) - f(x_0) \| \leq \sup_{t \in [0,1]} \| Df(x_0 + tu) u \|.$$ \end{lemma}
 
-\begin{proof} We first reduce to the case $V = \mathbb{R}$ as follows. By the Hahn-Banach theorem we have a linear $\phi:V \to R$ such that $\phi (f(x_0 + u) - f(x_0)) = \| f(x_0 + u) - f(x_0) \|$ and $\|\phi \| = 1$. So if the theorem is true for $g = \phi \circ f: X \to V$ we must have $$\|f(x_0+ u) -f(x_0)\| = \|g(x_0 + u) - g(x_0) \| \leq \sup_{t \in [0,1]} \| Dg(x_0 + tu) u \|.$$ But by the chain rule and the fact that $D\phi(x) = \phi$ for all linear $\phi$, we have that $Dg = \phi \circ Df$. Hence we have that $$\|Dg(x_0 +tu)u \| = \| \phi Df(x_0+tu)u \| \leq Df(x_0+tu)u.$$ 
+\begin{proof} We first reduce to the case $V = \mathbb{R}$ as follows. By the Hahn-Banach theorem we have a linear $\phi:V \to \bR$ such that $\phi (f(x_0 + u) - f(x_0)) = \| f(x_0 + u) - f(x_0) \|$ and $\|\phi \| = 1$. So if the theorem is true for $g = \phi \circ f: X \to V$ we must have $$\|f(x_0+ u) -f(x_0)\| = \|g(x_0 + u) - g(x_0) \| \leq \sup_{t \in [0,1]} \| Dg(x_0 + tu) u \|.$$ But by the chain rule and the fact that $D\phi(x) = \phi$ for all linear $\phi$, we have that $Dg = \phi \circ Df$. Hence as $\|\phi \| = 1$ we have that $$\|Dg(x_0 +tu)u \| = \| \phi \left( Df(x_0+tu)u \right) \| \leq \|Df(x_0+tu)u \|.$$ 
 
 We now turn to show that the theorem holds when $V = \mathbb{R}$. Let $h(t) = f(x_0+tu)$. Note that the classical derivative $h'(t) = Dh(t) (1)$ is continuous, hence we may apply the fundamental theorem of calculus to get $$\| f(x_0 + u) - f(x_0) \| = |h(1) - h(0)| \leq |\int_{0}^1 h'(t) dt| \leq \sup_{t \in [0,1]}|h'(t)|.$$ But from the chain rule we get
-\begin{align*} h'(t_0) &= Dh(t_0)(1) \\ &= D(f(x_0 + ut_0)) D(t \mapsto (x_0 + tu))(t_0)(1) \\ &= D(f(x_0+t_0u)) (t \mapsto tu)(1) \\&=D(f(x_0+t_0u)) u  \end{align*} \end{proof}
+\begin{align*} 
+h'(t_0) &= Dh(t_0)(1) \\ 
+&= \left[ D(f(x_0 + ut_0)) \circ D(t \mapsto (x_0 + tu))(t_0) \right](1) \\ 
+&= \left[ D(f(x_0+t_0u)) \circ (t \mapsto tu) \right] (1) \\
+&=D(f(x_0+t_0u)) u  \end{align*} \end{proof}
 
 \section{Smoothness of higher derivatives}
 
@@ -253,9 +281,9 @@ Suppose that $n \geq 3$ and the result is true for $n-1$.
 Now observe that for $u_1 \in U$ we have that  $$D(D^{n-1}f)(x_0)(u_1) = \lim_{t \to 0} \frac{1}{t}\left( (D^{n-1}f)(x_0 + u_1t) - (D^{n-1})f(x_0) \right)$$ and thus the left hand side is a limit of elements in $\cS_{n-1}(U,V)$ and thus $D(D^{n-1}f)(x_0)(u_1) \in \cS_{n-1}(U,V)$. In other words $D^{n}f(x_0)(u_1, u_2, \ldots, u_n)$ is invariant under permutation of the $u_2, \ldots, u_n$. It thus remains to show that it is invariant under permuting $u_1$ and $u_2$.
 
 By the case applied to $D^{n-2}f$ we have $$D^2(D^{n-2}f)(x_0)(u_1,u_2) = D^2(D^{n-2}f)(x_0)(u_2,u_1).$$
-Thus $$D^2(D^{n-2})(x_0)(u_1,u_2)(u_3, \ldots, u_n) = D^2(D^{n-2})(x_0)(u_2,u_1)(u_3, \ldots, u_n).$$
+Thus $$D^2(D^{n-2}f)(x_0)(u_1,u_2)(u_3, \ldots, u_n) = D^2(D^{n-2}f)(x_0)(u_2,u_1)(u_3, \ldots, u_n).$$
 
-Finally, the proof is complete as $D^2(D^{n-2})(f)(x_0)(u_1, \ldots, u_n) = D^{n}(f)(x_0)(u_1, \ldots, u_n)$.
+Finally, the proof is complete as $D^2(D^{n-2}f)(x_0)(u_1,u_2)(u_3, \ldots, u_n) = (D^{n}f)(x_0)(u_1, \ldots, u_n)$.
 \end{proof}
 
 \section{Taylor's Theorem}
@@ -266,7 +294,7 @@ We now ask how can this be formulated for $f:U \to \mathbb{R}$ where $U$ is an a
 
 \begin{lemma}\label{lemma: iterated linear chain rule}  Let $L: W \to U$ be a linear map and let $f:U \to V$ be $n$ times differentiable at $L(a)$, where $a \in W$. Then $$D^n(f \circ L)(a) = D^nf (L(a)) \circ  L^n$$ where $L^n(w_1, \ldots, w_n) := (Lw_1, \ldots, Lw_n)$. \end{lemma}
 
-\begin{remark} The is a generelization of the standard identity $h^{(n)}(at) = a^n h^{(n)}(at)$ from classical differential calculus. \end{remark}
+\begin{remark} The is a generalization of the standard identity $\frac{d}{dt}(h(b t)) = b^n h^{(n)}(b t)$ from classical differential calculus. \end{remark}
 
 \begin{proof} For $n=1$ this is the chain rule and the fact that $D(L)(a)=L$ for linear maps $L$. Now we proceed by induction. Assuming the result is true for $n$, we now suppose that $f$ is $n+1$ differentiable at $L(a)$. Then we get
 
