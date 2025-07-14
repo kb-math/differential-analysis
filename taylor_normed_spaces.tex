@@ -126,17 +126,18 @@ Given the uniqueness, we can now define $D = Df(x_0) \in \mathcal{L}(U,V)$ to be
 
 How do we define higher order derivatives in this setting? If $f:X \to V$ is differentiable on $X$ then $Df: X \to \mathcal{L}(U,V)$. Now $\mathcal{L}(U,V)$ is itself a normed vector space (equipped with operator norm) hence the derivative of $Df$ (assuming it exists) is a map $$D^2 f: X \to \mathcal{L}(U, \mathcal{L}(U,V)).$$ This means that given $u_1, u_2 \in U$ we have that $$D(Df)(x_0) \in \mathcal{L}(U,\mathcal{L}(U,V))$$ and hence $$(D(Df)(x_0) )u_1 \in \mathcal{L}(U,V)$$ and hence $$((D(Df)(x_0))u_1)u_2 \in V.$$ We abbreviate this element in $V$ by $$(D^2f)  (x_0) (u_1, u_2)$$ and hence we get a \textbf{multilinear map} $$(D^2 f) (x_0):U \times U \to V$$ called the \textit{second derivative} of $f$.
 
-Let us be more formal for higher derivatives. Let $\cL_{U}(V) = \cL(U,V)$ and define recurisively, $\cL^1_{U}(V) = \cL_(V)$ and $\cL^n_{U}(V) = \cL^{n-1}_{U}(V).$ 
+Let us be more formal for higher derivatives. Let $\cL_{U}(V) = \cL(U,V)$ and define recurisively, $\cL^1_{U}(V) = \cL(U,V)$ and $\cL^n_{U}(V) = \cL(U, \cL^{n-1}_{U}(V)).$ 
 
 Thus if $\phi \in \cL^2_{U}(V)$ then $\phi(u_1) \in \cL(U,V)$ and thus $(\phi(u_1))(u_2) \in V$. We rewrite this as $\phi(u_1)(u_2)$ to avoid lots of parentheses. So for example, if $\phi \in \cL^n_U(V)$ then $\phi(u_1)(u_2) \dots (u_n) \in V$, where this expression is processed from left to right (i.e., $\phi(u_1) \cdots (u_k)$ is an element of $\cL^{n-k}_U(V)$ and it takes $u_{k+1}$ as an argument).
 
 Observe that $\cL^n_U(V)$ is naturally a normed-vector space with norm being an operator norm.
 
-\begin{mydef} We define \textit{$f:X \to V$ to be $n$-differentiable at $x_0 \in X$} and we define the $n$-th derivative (if it exists) $(D^nf)(x_0) \in \cL(U,V)$ by the following recursive definition:
+\begin{mydef} We define \textit{$f:X \to V$ to be $n$-differentiable at $x_0 \in X$} and we define the $n$-th derivative (if it exists) $(D^nf)(x_0) \in \cL^n_U(V)$ by the following recursive definition:
 
 \begin{itemize} 
 	\item If $n=1$, then $D^1f(x_0) = Df(x_0)$ and $1$-differentiable at $x_0$ means differentiable at $x_0$.
-	\item If $n>1$, then we say that $f$ is $n$-differentiable at $x_0$ if there is an open neighbhourhoud $X' \subset X$ containing $x_0$ such that $f$ is $n-1$-differentiable for all $x \in X'$ and the map $x \mapsto D^{n-1}(f)(x)$ is differentiable at $x_0$. In this case, we define the $n$-th derivative $(D^{n}f) (x_0) = D(D^{n-1}f)(x_0)$
+	\item If $n>1$, then we say that $f$ is $n$-differentiable at $x_0$ if there is an open neighbhourhoud $X' \subset X$ containing $x_0$ such that $f$ is $n-1$-differentiable for all $x \in X'$ and the map $X' \to \cL_{U}^{n-1}(V)$ given by $x \mapsto D^{n-1}(f)(x)$ is differentiable at $x_0$. In this case, we define the $n$-th derivative 
+$$(D^{n}f) (x_0) = D(D^{n-1}f)(x_0) \in \cL^{n}_U(V).$$
 
 \end{itemize}
 
@@ -154,10 +155,19 @@ We now show that $D^n f(x_0)$ can be naturally realized as a multilinear map $U 
 
 In other words, the norm $\| T \|$ is equal to the operator norm on $\mathcal{L}(U_1, \mathcal{T}(U_2, \ldots, U_n \to V)).$ Letting $$\cT_n(U,V) = \cT(U_1 \times \cdots \times U_n \to V),$$we can apply this recursively to get.
 
-\begin{corol} We have an isometric isomorphism $$\cT(U_1, \ldots, U_n \to V) \cong \cL^n_U(V).$$ 
+\begin{corol} We have an isometric isomorphism $$\cT_n(U,V) \cong \cL^n_U(V).$$ 
 In this isomorphism, the element $\phi \in \cL^n_U(V)$ corresponds to $T \in \cT_n(U,V)$ given by $$T(u_1, \ldots, u_n) = \phi(u_1)(u_2) \cdots(u_n)$$ and the operator norm $\|\phi\|$ is equal to the norm $\|T\|$ on the space of bounded multilinear maps.
 
 \end{corol}
+
+\begin{proof} We prove this by induction on $n$. For $n=1$ this map is the identity map and $\cT_1(U,V) = \cL(U,V) = \cL^1_U(V)$ and so this mapping $T \mapsto \phi$ is indeed an isomorphism as it is the identity map. Now we let $\iota_k:\cL^k_U(V) \to \cT_k(U,V)$ by given by $$\iota_k(\phi)(u_1, \ldots u_n) = \phi(u_1)(u_2) \cdots (u_k).$$ By induction hypothesis, $\iota_{n-1}$ is an isometric isomorphism, where $n>1$.  Thus we have an isometric isomoprhism $\cL(U, \cL^{n-1}_U(V)) \to \cL(U, \cT_{n-1}(U,V))$ which maps $\phi$ to $\iota_{n-1} \circ \phi$. But by the proposition above, we have an isometric isomorphism $\cL(U, \cT_{n-1}(U,V)) \to \cT_{n}(U,V)$ which maps $\varphi$ to the multilinear map $$(u_1, \ldots, u_n) \mapsto \varphi(u_1)(u_1, \ldots, u_n).$$ Composing these two isometric isomorphisms, we have an isometric isomorphism mapping $\phi \in \cL(U, \cL^{n-1}_U(V))$ to the element $T \in \cT_{n}(U,V)$ given by 
+\begin{align*} T(u_1, \ldots, u_n) &= ((\iota_{n-1} \circ \phi)(u_1))(u_2, \ldots, u_n) \\ 
+&= \iota_{n-1}(\phi(u_1))(u_2, \ldots, u_n) \\
+&= \phi(u_1)(u_2) \ldots (u_n) \\
+& = (\iota_n(\phi))(u_1, \ldots, u_n).
+ \end{align*}
+
+Thus we have shown that the mapping $\phi \mapsto \iota_n(\phi)$ is an isomorphism $$\cL(U, \cL^{n-1}_U(V)) \to \cL(U, \cT_{n-1}(U,V)).$$ But by definition, $\cL(U, \cL^{n-1}_U(V)) = \cL^{n}_U(V).$  \end{proof}
 
 From now on, we identify $\cL^n_U(V)$ with the space of bounded multilinear maps as in the Corollary above. 
 Hence the nth derivative $D^nf(x_0)$ may be recursively defined as bounded multilinear map as follows:
@@ -175,8 +185,8 @@ The next proposition shows that the $n$-the derivative is a multilinear form tha
 D^nf(x_0)(u_1, \ldots, u_n) &= \left( D(D^{n-1}f) \right) (x_0)(u_1)(u_2, \ldots u_n) \\ 
 &= \left( \lim_{t \to 0} \frac{1}{t} \left(D^{n-1}f(x_0+tu) - D^{n-1}f(x_0) \right) \right) (u_2, \ldots, u_n) \\
 &= \lim_{t \to 0} \frac{1}{t} \left(D^{n-1}f(x_0+tu_1)(u_2, \ldots, u_n) - D^{n-1}f(x_0)(u_2, \ldots u_n) \right)\\
-&=\lim_{t \to 0} \frac{1}{t} \left( (\partial_{u_2} \cdot \partial_{u_n}f)(x_0+tu_1) - (\partial_{u_2} \cdot \partial_{u_n}f)(x_0)  \right) \\
-&= (\partial_1(\partial_{u_2} \cdot \partial_{u_n}f)) (x_0)
+&=\lim_{t \to 0} \frac{1}{t} \left( (\partial_{u_2} \cdots \partial_{u_n}f)(x_0+tu_1) - (\partial_{u_2} \cdots \partial_{u_n}f)(x_0)  \right) \\
+&= (\partial_1(\partial_{u_2} \cdots \partial_{u_n}f)) (x_0)
 \end{align*}
 
 where we were allowed to put $(u_2, \ldots, u_n)$ inside the limit since the convergence takes place with respect to the operator norm (on the space of bounded $n-1$-multilinear forms), hence pointwise. \end{proof}
