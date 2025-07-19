@@ -176,7 +176,7 @@ Hence the nth derivative $D^nf(x_0)$ may be recursively defined as bounded multi
 
 The next proposition shows that the $n$-the derivative is a multilinear form that gives iterated direction derivatives. We let $$(\partial_{u}f)(x_0) = \lim_{t \to 0} \frac{f(x_0+tu) - f(x_0)}{t \|u \|} $$ assuming that this limit exists.
 
-\begin{prop} Suppose that $f:X \to V$ is $n$-times differentiable to $x_0$. Then $$D_n f (x_0)(u_1, \ldots, u_n) = (\partial_{u_1} \cdots \partial_{u_n} f) (x_0).$$ More precisely, for $k<n$ the iterated limits $(\partial_{u_1} \cdots \partial_{u_k}f) (x)$ exists for all $x$ in some open subset of $X$, while for $k=n$ it exists for $x=x_0$ and equals the expression given.
+\begin{prop}\label{prop: higher order derivative is limit} Suppose that $f:X \to V$ is $n$-times differentiable to $x_0$. Then $$D_n f (x_0)(u_1, \ldots, u_n) = (\partial_{u_1} \cdots \partial_{u_n} f) (x_0).$$ More precisely, for $k<n$ the iterated limits $(\partial_{u_1} \cdots \partial_{u_k}f) (x)$ exists for all $x$ in some open subset of $X$, while for $k=n$ it exists for $x=x_0$ and equals the expression given.
 
 \end{prop}
 
@@ -253,8 +253,11 @@ $$H'(x) = f'_1(x)f_2(x) \cdots f_n(x) + \cdots + f_1(x) \cdots f_{n-1}(x) f'_n(x
 and so we recover the usual product rule from basic calculus.
 \end{eg}
 
-The next example will be important for our proof of Taylor's theorem and can be used to give a higher order product rule.
-\begin{eg} \label{product rule for compositions} Consider the composition map $$ \mathcal{L}(U,V) \times \mathcal{L}(W, U)  \to \mathcal{L}(W,U)$$ given by $(L_1, L_2) \mapsto L_1 \circ L_2$. Then it is a bounded bilinear map. Now suppose that we have maps $g: X \to \mathcal{L}(W,U)$ and $h: X \to \mathcal{L}(U,V)$ differentiable at $x_0 \in X$, where $X$ is an open subset of a normed vector space $U_0$. Then the map $M(x) = h(x) \circ g(x)$ is differentiable at $x_0$ with derivative given by $$ DM(x_0)u = D(h(x_0))u \circ g(x_0) + h(x_0) \circ Dg(x_0)u \quad \text{ for } u \in U_0. $$ \end{eg}
+\begin{prop}\label{prop: composition differentiable}  Suppose that $U,V,W$ are normed vector spaces with $X \subset U$ and $Y \subset V$ open sets. Suppose $f:X \to Y$ is $n$-times differentiable at $x_0 \in X$ and $g:Y \to W$ is $n$-times differentiable at $y_0 = f(x_0) \in Y$. Then $g \circ f$ is $n$-tyimes differentiable at $x_0$.
+
+\end{prop}
+
+\begin{proof} We prove this by induction on $n$. The $n=1$ case is the chain rule, so fix $n>1$ and suppose the result is true for smaller $n$. Now by the chain rule we have $$D(f \circ g)(x) = Df(gx) \circ Dg(x)$$ for all $x$ in some open neighbourhood $X' \subset X$ of $x_0$. Thus it is enough to show that $D(f \circ g)$ is $n-1$-times differentiable at $x_0$. Now $Df$ is $n-1$-time differentiable and $g$ is $n$-times, hence $n-1$-times, differentiable in a nieghbourhood of $y_0$ and $x_0$ respectively. Thus $x \mapsto Df(gx)$ is $n-1$-time differentiable by the induction hypothesis (i.e., this mapping is $Df \circ g$). Thus we that the have map $h:X'' \to \cL(V,W) \times \cL(U,W)$ given by $$h(x) = (Df(gx), Dg(x))$$ is $n-1$-times differentiable at $x_0$, where $X''$ is an open neighbhourhood of $x_0$. Now the composition mapping $T:\cL(V,W) \times \cL(U,V) \to \cL(U,W)$ given by $T(\phi, \psi) = \phi \circ \psi$ is a bounded bilinear map (i.e., $\|T(\phi, \psi) \| \leq \|\phi\| \|\psi\|$ so $\|T\| \leq 1$ is finite) and so by product rule for multlinear maps, it is smooth and hence $n-1$-time differentiable. Thus by the induction hypothesis $h \circ T$ is also $n-1$-time differentiable. But $(h \circ T)(x) = Df(g(x)) \circ Dg(x) = D(f \circ g)(x)$, so indeed $D(f \circ g)$ is $n-1$-times differentiable. \end{proof}
 
 \begin{lemma}(Mean value inequality) Suppose $f:X \to V$ is differentiable on each point of the segment $x_0 + tu$ for $t \in [0,1]$ and that $t \mapsto Df(x_0 + tu)$ is continuous on $[0,1]$ . Then $$\| f(x_0 + u) - f(x_0) \| \leq \sup_{t \in [0,1]} \| Df(x_0 + tu) u \|.$$ \end{lemma}
 
@@ -266,8 +269,6 @@ h'(t_0) &= Dh(t_0)(1) \\
 &= \left[ D(f(x_0 + ut_0)) \circ D(t \mapsto (x_0 + tu))(t_0) \right](1) \\ 
 &= \left[ D(f(x_0+t_0u)) \circ (t \mapsto tu) \right] (1) \\
 &=D(f(x_0+t_0u)) u  \end{align*} \end{proof}
-
-\section{Smoothness of higher derivatives}
 
 \section{The commutativity of higher order derivatives}
 
@@ -298,33 +299,33 @@ Finally, the proof is complete as $D^2(D^{n-2}f)(x_0)(u_1,u_2)(u_3, \ldots, u_n)
 
 \section{Taylor's Theorem}
 
-If $h: \mathbb{R} \to \mathbb{R}$ is $N$ times continuously differentiable at $x_0 \in \mathbb{R}$ then the classical Taylor expansion is $$h(x_0 + u) = h(x_0) + h'(x_0)u + \frac{1}{2!}h^{(2)}(x_0)u^2 + \cdots + \frac{1}{N!}h^{(N)}(x_0)u^N + R(u)$$ with error term $$R(u) = \frac{1}{(N+1)!} \int_{0}^u h^{(N+1)}(x_0 + t) t^n dt.$$ 
+If $h: \mathbb{R} \to \mathbb{R}$ is $N$ times continuously differentiable at $x_0 \in \mathbb{R}$ then the classical Taylor expansion is $$h(x_0 + u) = h(x_0) + h'(x_0)u + \frac{1}{2!}h^{(2)}(x_0)u^2 + \cdots + \frac{1}{N!}h^{(N)}(x_0)u^N + R(u)$$ with error term $$R(u) = \frac{1}{(N+1)!} \int_{0}^u t^n h^{(N+1)}(x_0 + t) dt.$$ 
 
 We now ask how can this be formulated for $f:U \to \mathbb{R}$ where $U$ is an arbitrary vector space? If we define $u^n$ to be the $n$-tuple $(u, \ldots, u)$ then the expression $Df^n(x_0) u^n$ makes sense, as $Df^n(x_0)$ is a multilinear map. Hence a strategy of deriving a Taylor theorem involves first parametrizing the line segment from $x_0$ to $x_0 + u$ by defining $L(t) = tu$ and applying the classical Taylor theorem to $h = f \circ L$. To do this we need to compute $D^n(f \circ L) (t_0)$. 
 
-\begin{lemma}\label{lemma: iterated linear chain rule}  Let $L: W \to U$ be a linear map and let $f:U \to V$ be $n$ times differentiable at $L(a)$, where $a \in W$. Then $$D^n(f \circ L)(a) = D^nf (L(a)) \circ  L^n$$ where $L^n(w_1, \ldots, w_n) := (Lw_1, \ldots, Lw_n)$. \end{lemma}
+\begin{lemma}\label{lemma: iterated linear chain rule}  Let $L: W \to U$ be a bounded linear map and let $f:U \to V$ be $n$ times differentiable at $L(a)$, where $a \in W$. Then $$D^n(f \circ L)(a) = D^nf (L(a)) \circ  L^n$$ where $L^n(w_1, \ldots, w_n) := (Lw_1, \ldots, Lw_n)$. In other words $$(D^n(f \circ L))(a) (w_1, \ldots, w_n) = (D^nf)(La) (Lw_1, \ldots, Lw_n).$$ \end{lemma}
 
 \begin{remark} The is a generalization of the standard identity $\frac{d}{dt}(h(b t)) = b^n h^{(n)}(b t)$ from classical differential calculus. \end{remark}
 
-\begin{proof} For $n=1$ this is the chain rule and the fact that $D(L)(a)=L$ for linear maps $L$. Now we proceed by induction. Assuming the result is true for $n$, we now suppose that $f$ is $n+1$ differentiable at $L(a)$. Then we get
+\begin{proof} For $n=1$ this is the chain rule and the fact that $D(L)(a)=L$ for linear maps $L$. Now we proceed by induction. Assuming the result is true for $n$, we now suppose that $f$ is $n+1$ differentiable at $L(a)$. Thus by Proposition~\ref{prop: composition differentiable} $f \circ L$ is $n+1$ times differentiable at $a$. We now use Proposition~\ref{prop: higher order derivative is limit} (which we can as $f \circ L$ is $n+1$-times differentiable at $a$) and the induction hypothesis as follows 
+\begin{align*} D^{n+1}(f \circ L)(a)(w_0, w_1, \ldots, w_n)  &= 
+\lim_{t \to 0} t^{-1} \left( D^n (f \circ L)(a + tw_0)(w_1, \ldots, w_n) - D^n(f \circ L)(a)(w_1, \ldots, w_n) \right) \\ 
+&= \lim_{t \to 0} t^{-1} \left( (D^nf)(L(a + tw_0))(Lw_1, \ldots, Lw_n) - (D^nf)(La)(Lw_1, \ldots, L w_n) \right) \\ 
+&= \lim_{t \to 0} t^{-1} \left( (D^nf)(La + t Lw_0))(Lw_1, \ldots, Lw_n) - (D^nf)(La)(Lw_1, \ldots, L w_n) \right) \\ 
+&= \left( \lim_{t \to 0} t^{-1} \left( (D^nf)(La + t Lw_0))- (D^nf)(La) \right) \right) (Lw_1, \ldots, L w_n) \\ 
+&= (D(D^nf)(La))(Lw_0) (Lw_1, \ldots, L w_n) \\
+&= (D^{n+1}f)(La)(Lw_0, \ldots, L w_n)  \end{align*} 
 
-\begin{align*} D^{n+1}(f \circ L)(a)  &= D(D^n(f \circ L))(a) \\ &= D( w \mapsto D^n f(Lw)  \circ L^n)(a). \end{align*} 
+which completes the proof.  \end{proof}
 
-To compute this term we use the product rule, specifically Example \ref{product rule for compositions} to the map $w \mapsto D^nf(Lw)$ and the constant map $w \mapsto L^n$. The latter has zero derivative so we only get the first term from Example ((\ref{product rule for compositions})). This means that \begin{align*} D^{n+1}(f \circ L)(a) (w_0, w_1, \ldots, w_n) &= D^{n+1}(f \circ L)(a)(w_0) (w_1, \ldots, w_n) \\ &=( D( w \mapsto D^nf(Lw)) (a) (w_0) \circ L^n ) (w_1, \ldots, w_n) \end{align*}
+\begin{thm}(Co-ordinate free general Taylor theorem) Suppose $f:X \to \mathbb{R}$ is $(n+1)$ times continuously differentiable and let $x_0 \in X$ and $u \in U$ be such that the line segment $x_0 + tu$ is in $X$. Then we have that $$f(x_0 + u) = f(x_0) + \sum_{n=1}^N \frac{1}{n!} D^n f(x_0) u^n + R(u)$$ where $u^n = (u, \ldots, u) \in U^n$ and $$R(u) =\frac{1}{(N+1)!} \int_{0}^1 t^n D^{N+1}f(x_0 + tu)u^{n+1} dt  .$$  \end{thm}
 
-where we firstly used our canonical isomorphism  $$\mathcal{L}(W_0, \mathcal{T}(W_1, \ldots, W_n \to V)) \cong \mathcal{T}(W_0, \ldots, W_n \to V)$$ with $W_i = W$ followed by Example \ref{product rule for compositions} as described.
-
- Now to compute this final derivative we use the chain rule as follows. Let $F(u) = D^nf(u)$. Then this final derivative is $D(F \circ L) (a)$ hence equal to $D(F)(La) \circ L= D^{n+1}f(La) \circ L$. So we have shown that \begin{align*} D^{n+1}(f \circ L)(a)(w_0, \ldots, w_n) &= \left((D^{n+1}f(La) \circ L)w_0 \circ L^n) \right) (w_1, \ldots, w_n) \\ &= D^{n+1}f(La) (Lw_0) (Lw_1, \ldots, Lw_n) \end{align*} and the proof is complete once one again applies the canonical isomorphism.
-\end{proof}
-
-\begin{thm}(Co-ordinate free general Taylor theorem) Suppose $f:X \to \mathbb{R}$ is $(n+1)$ times continuously differentiable and let $x_0 \in X$ and $u \in U$ be such that the line segment $x_0 + tu$ is in $X$. Then we have that $$f(x_0 + u) = f(x_0) + \sum_{n=1}^N \frac{1}{n!} D^n f(x_0) u^n + R(u)$$ where $u^n = (u, \ldots, u) \in U^n$ and $$R(u) =\frac{1}{(N+1)!} \int_{0}^1 D^{N+1}f(x_0 + tu)u^{n+1} t^n dt  .$$  \end{thm}
-
-\begin{proof} By translation invariance of derivatives, it is enough to prove this for $x_0 = 0$. Now write $f(x_0 + tu) - f(x_0) = h(1) - h(0)$ and use Taylor's theorem, where $h = f \circ L$ where $L:\mathbb{R} \to U$ is given by $L(t) = tu$. The result now follows from the Lemma~\ref{lemma: iterated linear chain rule} 
+\begin{proof} By translation invariance of derivatives, it is enough to prove this for $x_0 = 0$. Now write $f(x_0 + tu) - f(x_0) = h(1) - h(0)$ and use Taylor's theorem, where $h = f \circ L$ where $L:\mathbb{R} \to U$ is given by $L(t) = tu$. The result now follows from the Lemma~\ref{lemma: iterated linear chain rule}.
 \end{proof}
 
 \section{Recovering the co-ordinate based Taylor theorem}
 
-To recover the Taylor theorem most often presented in undergraduate vector calculus, one needs to expand $D^nf(x_0) u^n$ as follows. Writing $$u = \sum_i u_i e_i$$ where $e_1, \ldots, e_d$ is a basis for $U$, we have that $$D^nf(x_0) (e_{i_1}, \ldots, e_{i_n}) = \partial_{i_1} \cdots \partial{i_n}f(x_0),$$ where $\partial_i$ is partial differentiation with respect to the $e_i$ direction. Hence by multilinearity we get that $$D^nf(x_0)u = \sum_{i_1, \ldots, i_n} \partial_{i_1} \cdots \partial_{i_n}f(x_0) u_{i_1} \ldots u_{i_n}.$$ Now by commutativity of derivatives the order of $i_1, \ldots, i_n$ does not matter, hence it pays to express this in terms of partitions as follows. Given $\alpha = (a_1, \ldots, a_d) \in \mathbb{Z}_{\geq 0}^d$ such that $\sum_i a_i = n$ we define $$D^{\alpha}f(x_0) = \partial_1^{a_1} \cdots \partial_n^{a_d} f(x_0)$$ where $\partial_i^{k}$ means $\partial_i$ applied $k$ times. Define also $$u^{\alpha} = \prod_{i} u_i^{a_i}.$$ Then by grouping the terms together we get the expression $$D^n f(x_0) u = \sum_{|\alpha| = n} \binom{n}{\alpha} D^{\alpha}f(x_0) u ^{\alpha}$$ where $|\alpha| = a_1 + \cdots + a_d$ and $$\binom{n}{\alpha} = \frac{n!}{a_1 ! \cdots a_d!}$$ is the multinomial coefficient which counts the number of sequences $\{1, \ldots, d\}^n$ where $i$ appears $a_i$ times. Finally, this means that the Taylor theorem may be written as $$ f(x_0 + u ) = f(x_0) + \sum_{n=1}^N \sum_{|\alpha| = n} \frac{1}{\alpha!} D^{\alpha}f(x_0) u^{\alpha}  + R(x) $$ where $$ \alpha! = a_1! \cdots a_d!$$
+To recover the Taylor theorem most often presented in undergraduate vector calculus, one needs to expand $D^nf(x_0) u^n$ as follows. Writing $$u = \sum_i u_i e_i$$ where $e_1, \ldots, e_d$ is a basis for $U$, we have that $$D^nf(x_0) (e_{i_1}, \ldots, e_{i_n}) = \partial_{i_1} \cdots \partial{i_n}f(x_0),$$ where $\partial_i$ is partial differentiation with respect to the $e_i$ direction. Hence by multilinearity we get that $$D^nf(x_0)u = \sum_{i_1, \ldots, i_n} \partial_{i_1} \cdots \partial_{i_n}f(x_0) u_{i_1} \ldots u_{i_n}.$$ Now by commutativity of derivatives the order of $i_1, \ldots, i_n$ does not matter, hence it pays to express this in terms of partitions as follows. Given $\alpha = (a_1, \ldots, a_d) \in \mathbb{Z}_{\geq 0}^d$ such that $\sum_i a_i = n$ we define $$D^{\alpha}f(x_0) = \partial_1^{a_1} \cdots \partial_n^{a_d} f(x_0)$$ where $\partial_i^{k}$ means $\partial_i$ applied $k$ times. Define also $$u^{\alpha} = \prod_{i} u_i^{a_i}.$$ Then by grouping the terms together we get the expression $$D^n f(x_0) u = \sum_{|\alpha| = n} \binom{n}{\alpha} D^{\alpha}f(x_0) u ^{\alpha}$$ where $|\alpha| = a_1 + \cdots + a_d$ and $$\binom{n}{\alpha} = \frac{n!}{a_1 ! \cdots a_d!}$$ is the multinomial coefficient which counts the number of sequences $\{1, \ldots, d\}^n$ where $i$ appears $a_i$ times. Finally, this means that the Taylor theorem may be written as $$ f(x_0 + u ) = f(x_0) + \sum_{n=1}^N \sum_{|\alpha| = n} \frac{1}{\alpha!} D^{\alpha}f(x_0) u^{\alpha}  + R(u) $$ where $$ \alpha! = a_1! \cdots a_d!.$$
 
 \section{Sufficient conditions for differentiability}
 
